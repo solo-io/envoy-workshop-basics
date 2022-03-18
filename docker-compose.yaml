@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+
+  envoy:
+    image: envoyproxy/envoy:v1.20-latest
+    volumes:
+    - ./config/envoy.yaml:/etc/envoy.yaml 
+    entrypoint: /usr/local/bin/envoy -c /etc/envoy.yaml 
+    networks:
+    - network
+    ports:
+    - "8080:8080"
+    - "19000:19000"
+
+
+  upstream:
+    build:
+      context: ./upstream
+      dockerfile: service/Dockerfile
+    networks:
+    - network
+
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: service/Dockerfile
+      
+    networks:
+    - network
+
+
+networks:
+  network: {}

@@ -1,2 +1,1 @@
-# envoy-workshop-basics
-Envoy basics workshop
+Workshop
