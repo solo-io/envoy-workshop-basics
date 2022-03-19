@@ -4,7 +4,7 @@ services:
   envoy:
     image: envoyproxy/envoy:v1.20-latest
     volumes:
-    - ./config/envoy.yaml:/etc/envoy.yaml 
+    - ./config/served-envoy.yaml:/etc/envoy.yaml 
     entrypoint: /usr/local/bin/envoy -c /etc/envoy.yaml 
     networks:
     - network
