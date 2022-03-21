@@ -10,7 +10,7 @@ static_resources:
   - address:
       socket_address:
         address: 0.0.0.0
-        port_value: 8000
+        port_value: 8443
     filter_chains:
     - filters:
       - name: envoy.filters.network.http_connection_manager
@@ -23,10 +23,10 @@ static_resources:
             virtual_hosts:
             - name: upstream
               domains:
-              - "*"
+              - "hello.envoyproxy.io"
               routes:
               - match:
-                  prefix: "/"
+                  prefix: "/hello"
                 route:
                   cluster: upstream
           http_filters:
@@ -40,7 +40,17 @@ static_resources:
                   cluster: auth
                   timeout: 0.250s
           - name: envoy.filters.http.router
-
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          require_client_certificate: true
+          common_tls_context:
+            tls_certificates:
+            - certificate_chain:
+                filename: etc/tls.crt
+              private_key:
+                filename: etc/tls.key
   clusters:
   - name: upstream
     type: STRICT_DNS
