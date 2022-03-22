@@ -48,9 +48,9 @@ static_resources:
           common_tls_context:
             tls_certificates:
             - certificate_chain:
-                filename: /etc/tls.crt
+                filename: /etc/certs/tls.crt
               private_key:
-                filename: /etc/tls.key
+                filename: /etc/certs/tls.key
   clusters:
   - name: upstream
     type: STRICT_DNS
