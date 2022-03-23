@@ -40,6 +40,8 @@ services:
     volumes:
     - ./configs/monitoring/grafana.ini:/etc/grafana/grafana.ini
     - ./configs/monitoring/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    - ./configs/monitoring/dashboard.json:/usr/share/grafana/public/dashboards/home.json
+    
     ports:
       - 3000:3000
     links:
