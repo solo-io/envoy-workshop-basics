@@ -32,14 +32,14 @@ static_resources:
               # The following section mean that any call on the path '/hello' will be routed to the cluster 'upstream'
               routes:
               - match:
-                  exact: "/hello"
+                  prefix: "/hello"
                 route:
                   cluster: upstream
           # The HTTP Connection Manager allows you to define multiple http filters, to transform or authorize an HTTP request for example. 
           # The last filter in this filter chain is the 'router', it will route traffic to the corresponding Envoy Clusters.  
           http_filters:
           - name: envoy.filters.http.router
-
+#########################################
   clusters:
   - name: upstream
     type: STRICT_DNS
