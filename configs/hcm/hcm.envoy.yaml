@@ -12,6 +12,10 @@ static_resources:
         address: 0.0.0.0
         port_value: 8000
     filter_chains:
+#########################################
+# Envoy HTTP Connection Manager Filter
+# The HTTP Connection Manager (HCM) is used in Envoy to handle the HTTP traffic, allowing users to route to certain endpoints, apply policies, manage the timeouts and more.      
+#########################################     
     - filters:
       - name: envoy.filters.network.http_connection_manager
         typed_config:
@@ -20,15 +24,19 @@ static_resources:
           stat_prefix: ingress_http
           route_config:
             name: local_route
+            # Defining a Virtual Host we will configure the matching domains, and under a Virtual Host we can define the maching routes.   
             virtual_hosts:
             - name: upstream
               domains:
               - "hello.envoyproxy.io"
+              # The following section mean that any call on the path '/hello' will be routed to the cluster 'upstream'
               routes:
               - match:
                   exact: "/hello"
                 route:
                   cluster: upstream
+          # The HTTP Connection Manager allows you to define multiple http filters, to transform or authorize an HTTP request for example. 
+          # The last filter in this filter chain is the 'router', it will route traffic to the corresponding Envoy Clusters.  
           http_filters:
           - name: envoy.filters.http.router
 
