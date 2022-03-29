@@ -30,6 +30,11 @@ static_resources:
                 route:
                   cluster: upstream
           http_filters:
+#########################################
+# Envoy Extauth Filter 
+# The Envoy Extauth filter allow the configuration of an external auth mechanism to enforce custom policies on the traffic.
+# The Extauth filter is an HTTP filter, and can be attached to the HCM (before the router filter)      
+#########################################          
           - name: envoy.filters.http.ext_authz
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
@@ -37,7 +42,7 @@ static_resources:
               http_service:
                 server_uri:
                   uri: auth
-                  cluster: auth
+                  cluster: auth # A cluster representing the external auth server is needed (see the 'clusters' section bellow)
                   timeout: 0.250s
           - name: envoy.filters.http.router
       transport_socket:
@@ -64,7 +69,7 @@ static_resources:
               socket_address:
                 address: upstream
                 port_value: 8080
-
+# The following cluster represent the external auth server, and can be used in the Extauth Filter. 
   - name: auth
     type: STRICT_DNS
     lb_policy: ROUND_ROBIN

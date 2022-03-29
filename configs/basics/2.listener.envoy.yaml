@@ -10,7 +10,7 @@ admin:
 static_resources:
 #########################################
 # Envoy Listeners
-# The configuration below represent an Envoy Listener, Envoy will accept incoming taffic on port 8000.      
+# The configuration below represent an Envoy Listener, Envoy will accept incoming traffic on port 8000.      
 #########################################
 
   listeners:
