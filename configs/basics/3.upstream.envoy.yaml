@@ -13,10 +13,11 @@ static_resources:
         port_value: 8000
     filter_chains:
     - filters:
+        # Using a TCP proxy we will direct all traffic to the cluster named 'upstream'
       - name: envoy.filters.network.tcp_proxy
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
-          cluster: upstream
+          cluster: upstream # The cluster name (check bellow) is used here for the routing. 
           stat_prefix: passthrough
 #########################################
 # Envoy Clusters
