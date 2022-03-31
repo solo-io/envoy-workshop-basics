@@ -10,7 +10,9 @@ static_resources:
   - address:
       socket_address:
         address: 0.0.0.0
+        # ------ Modified from http port 8080 to https port 8443 -----
         port_value: 8443
+        # ------------------------------------------------------------
     filter_chains:
     - filters:
       - name: envoy.filters.network.http_connection_manager
@@ -31,6 +33,7 @@ static_resources:
                   cluster: upstream
           http_filters:
           - name: envoy.filters.http.router
+      # ------ Add transport_socket to filter chain with TLS credentials ------
       transport_socket:
         name: envoy.transport_sockets.tls
         typed_config:
@@ -42,6 +45,7 @@ static_resources:
                 filename: /etc/certs/tls.crt
               private_key:
                 filename: /etc/certs/tls.key
+      # ------------------------------------------------------------------------
   clusters:
   - name: upstream
     type: STRICT_DNS
