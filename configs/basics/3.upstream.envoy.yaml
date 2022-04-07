@@ -7,21 +7,26 @@ admin:
       port_value: 19000
 static_resources:
   listeners:
-  - address:
+  - name: envoy-listener-8000
+    address:
       socket_address:
         address: 0.0.0.0
         port_value: 8000
     filter_chains:
     - filters:
+        # Using a TCP proxy we will direct all traffic to the cluster named 'upstream'
       - name: envoy.filters.network.tcp_proxy
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
-          cluster: upstream
+          cluster: upstream # The cluster name (check below) is used here for the routing. 
           stat_prefix: passthrough
-
+#########################################
+# Envoy Clusters
+# The following is a definition of an Envoy Cluster called 'upstream'
+#########################################
   clusters:
-  - name: upstream
-    type: STRICT_DNS
+  - name: upstream # the name of the cluster will be used in the Listener filter for routing. 
+    type: STRICT_DNS # This indicated that we will be referencing a service behind DNS (https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/cluster/v3/cluster.proto#enum-config-cluster-v3-cluster-discoverytype)
     lb_policy: ROUND_ROBIN
     load_assignment:
       cluster_name: upstream
@@ -30,5 +35,6 @@ static_resources:
         - endpoint:
             address:
               socket_address:
+                # The demo service 'upstream' is running within the same docker-compose stack, and is accessible using the address upstream:8080 
                 address: upstream
                 port_value: 8080          

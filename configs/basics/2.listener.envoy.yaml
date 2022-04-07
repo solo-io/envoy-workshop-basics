@@ -1,3 +1,5 @@
+
+
 admin:
   access_log_path: /tmp/admin_access.log
   address:
@@ -6,11 +8,22 @@ admin:
       address: 0.0.0.0
       port_value: 19000
 static_resources:
+#########################################
+# Envoy Listeners
+# The configuration below represent an Envoy Listener, Envoy will accept incoming traffic on port 8000.      
+#########################################
+
   listeners:
-  - address:
+  - name: envoy-listener-8000
+    address:
       socket_address:
         address: 0.0.0.0
         port_value: 8000
+#########################################
+# Envoy TCP filters
+# In Envoy, we can attach TCP filter to a listener to interact with the traffic, in the following example we are using a `direct response` filter
+# the filter, will return a string 'hello world' to all the traffic hitting the listener on port 8000. 
+#########################################
     filter_chains:
     - filters:
       - name: envoy.filters.network.direct_response
