@@ -18,6 +18,11 @@ static_resources:
           "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
           codec_type: AUTO
           stat_prefix: ingress_http
+#########################################
+# Access Logs 
+# To setup the access logs in Envoy, you need to configure the access_log field in the HTTP Connection Manager, you can fine tune the configuration
+# of the access logs to log particular headers for example, more info here: https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage   
+#########################################          
           access_log:
           - name: envoy.access_loggers.stdout
             typed_config:
