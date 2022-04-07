@@ -14,7 +14,8 @@ static_resources:
 #########################################
 
   listeners:
-  - address:
+  - name: envoy-listener-8000
+    address:
       socket_address:
         address: 0.0.0.0
         port_value: 8000
