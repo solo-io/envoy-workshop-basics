@@ -7,7 +7,8 @@ admin:
       port_value: 19000
 static_resources:
   listeners:
-  - address:
+  - name: envoy-listener-8000
+    address:
       socket_address:
         address: 0.0.0.0
         # ------ Modified from http port 8080 to https port 8443 -----
