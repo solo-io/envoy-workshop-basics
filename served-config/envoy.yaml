@@ -7,7 +7,7 @@ admin:
       port_value: 19000
 static_resources:
   listeners:
-  - name: envoy-listener-8000
+  - name: envoy-listener-8443
     address:
       socket_address:
         address: 0.0.0.0
