@@ -67,10 +67,12 @@ static_resources:
       endpoints:
       - lb_endpoints:
         - endpoint:
+            health_check_config:
+              port_value: 8080        
             address:
               socket_address:
                 address: upstream
-                port_value: 8080
+                port_value: 8080        
 
   - name: auth
     type: STRICT_DNS
