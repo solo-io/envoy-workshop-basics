@@ -871,8 +871,8 @@
     ]
   },
   "time": {
-    "from": "2022-03-22T21:54:09.098Z",
-    "to": "2022-03-22T21:56:54.439Z"
+    "from": "now-15m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
