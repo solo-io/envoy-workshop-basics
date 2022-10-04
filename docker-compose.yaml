@@ -36,7 +36,7 @@ services:
     - "9090:9090"
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:8.5.4
     volumes:
     - ./configs/monitoring/grafana.ini:/etc/grafana/grafana.ini
     - ./configs/monitoring/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
