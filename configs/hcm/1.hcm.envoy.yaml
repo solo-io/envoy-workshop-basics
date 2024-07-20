@@ -40,6 +40,8 @@ static_resources:
           # The last filter in this filter chain is the 'router', it will route traffic to the corresponding Envoy Clusters.  
           http_filters:
           - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 #########################################
   clusters:
   - name: upstream
